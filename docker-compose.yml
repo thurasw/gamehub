@@ -1,0 +1,46 @@
+services:
+  gateway:
+    build: GameHub/Gateway.WebApi
+    environment: &port_env
+      ASPNETCORE_URLS: http://0:0:0:0:80
+    ports:
+      - 3000:80
+
+  web-application:
+    build:
+      context: ./GameHub/WebApplication
+      additional_contexts:
+        frontend: ./frontend
+    environment: *port_env
+
+  game-service:
+    build: GameHub/GameService
+    environment:
+      <<: *port_env
+      GAME_CLIENT_ID: ${GAME_CLIENT_ID}
+      GAME_CLIENT_SECRET: ${GAME_CLIENT_SECRET}
+
+  promo-service:
+    build: GameHub/PromoService
+    environment: &env
+      <<: *port_env
+      MYSQL_HOST: mysql
+      MYSQL_PASSWORD: secret
+    networks: &net
+      db-mysql: {}
+      default: {}
+
+  review-service:
+    build: GameHub/ReviewService
+    environment: *env
+    networks: *net
+
+  user-service:
+    build: GameHub/UserService
+    environment: *env
+    networks: *net
+
+networks:
+  default:
+  db-mysql:
+    external: true
