@@ -1,0 +1,170 @@
+<div style="margin-top: 100px" class="container">
+    <div class="row">
+        <div class="col">
+            <span (click)="selectedHeader = 'promo'" [class.selected-header]="selectedHeader === 'promo'" class="header">Promos</span>
+            <span (click)="selectedHeader = 'report'" [class.selected-header]="selectedHeader === 'report'" class="header ml-5">Reports</span>
+            <span *ngIf="selectedHeader === 'promo'" (click)="openModal(addPromo)" class="header ml-5">+</span>
+        </div>
+    </div>
+    <div *ngIf="selectedHeader === 'promo'" class="row mt-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Slug</th>
+                    <th scope="col">Banner</th>
+                    <th scope="col">Background</th>
+                    <th scope="col">Character</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let promo of promos">
+                    <th scope="row">{{promo.id}}</th>
+                    <td>{{promo.name}}</td>
+                    <td>{{promo.gameSlug}}</td>
+                    <td>{{promo.banner ? '✓' : '❌'}}</td>
+                    <td>{{promo.background ? '✓' : '❌'}}</td>
+                    <td>{{promo.character ? '✓' : '❌'}}</td>
+                    <td>
+                        <i (click)="selectedPromo = promo.id; openModal(deletePromoModal);" class="far fa-trash-alt cursor-pointer"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="mt-4 text-center w-100" *ngIf="promos.length === 0">No entries</p>
+    </div>
+    <div *ngIf="selectedHeader === 'report'" class="row mt-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Review ID</th>
+                    <th scope="col">Date Reported</th>
+                    <th scope="col">Reason</th>
+                    <th scope="col">Review Content</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let report of reports">
+                    <th scope="row">{{report.reviewId}}</th>
+                    <td>{{report.dateReported}}</td>
+                    <td>{{report.reason}}</td>
+                    <td>{{report.reviewText}}</td>
+                    <td style="font-size: 1rem;">
+                        <i (click)="selectedReport = report; openModal(resolveReviewModal);" class="far fa-check-circle cursor-pointer"></i>
+                        <i (click)="selectedReport = report; openModal(deleteReviewModal);" class="far fa-trash-alt cursor-pointer ml-3"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="mt-4 text-center w-100" *ngIf="reports.length === 0">No entries</p>
+    </div>
+</div>
+
+
+<ng-template #addPromo let-modal>
+    <form [formGroup]="promoForm" (ngSubmit)="createPromo(modal)" novalidate>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Add promo</h4>
+            <button style="outline: none;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="title">Game Title:</label>
+                <div class="input-group">
+                    <input id="title" formControlName="name" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="slug">Game Slug:</label>
+                <div class="input-group">
+                    <input id="slug" formControlName="gameSlug" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="banner">Banner Image:</label>
+                <div class="input-group">
+                    <input id="banner" [value]="banner.value.replace('C:\\fakepath\\', '')" readonly type="text" class="form-control">
+                    <input hidden #banner (change)="onFileChange($event, 'banner')" type="file" class="form-control" accept="image/*" placeholder="Banner">
+                    <div class="input-group-append">
+                        <button (click)="banner.click()" style="border-radius: 0;" class="btn modal-btn enabled-btn" type="button">
+                            <i class="fas fa-folder-open"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="background">Background Image:</label>
+                <div class="input-group">
+                    <input id="background" [value]="background.value.replace('C:\\fakepath\\', '')" readonly type="text" class="form-control">
+                    <input hidden #background (change)="onFileChange($event, 'background')" type="file" class="form-control" accept="image/*" placeholder="Background">
+                    <div class="input-group-append">
+                        <button (click)="background.click()" style="border-radius: 0;" class="btn modal-btn enabled-btn" type="button">
+                            <i class="fas fa-folder-open"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="character">Character Image:</label>
+                <div class="input-group">
+                    <input id="character" [value]="character.value.replace('C:\\fakepath\\', '')" readonly type="text" class="form-control">
+                    <input hidden #character (change)="onFileChange($event, 'character')" type="file" class="form-control" accept="image/*" placeholder="Character">
+                    <div class="input-group-append">
+                        <button (click)="character.click()" style="border-radius: 0;" class="btn modal-btn enabled-btn" type="button">
+                            <i class="fas fa-folder-open"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <p *ngIf="promoError" style="color: crimson; margin-bottom: 0;">{{promoError}}</p>
+        </div>
+        <div class="modal-footer">
+            <button [disabled]="promoForm.invalid || promoForm.pristine || !promoImages.banner || !promoImages.background || !promoImages.character" [class.enabled-btn]="!promoForm.invalid && !promoForm.pristine && promoImages.banner && promoImages.background && promoImages.character"
+                style="width: 90%; border: 2px solid #363636;" type="submit" class="btn modal-btn mx-auto">Save</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #deletePromoModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Delete promo?</h4>
+    </div>
+    <div *ngIf="promoError" style="padding-top: 0; padding-bottom: 1rem;" class="modal-body">
+        <p style="color: crimson; margin-bottom: 0;">{{promoError}}</p>
+    </div>
+    <div class="modal-footer">
+        <button (click)="modal.close()" style="border: 1.5px solid #363636" class="btn modal-btn enabled-btn">Cancel</button>
+        <button (click)="deletePromo(modal)" id="del-btn" type="button" class="btn modal-btn enabled-btn">Delete</button>
+    </div>
+</ng-template>
+
+<ng-template #resolveReviewModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Resolve report?</h4>
+    </div>
+    <div *ngIf="reportError" style="padding-top: 0; padding-bottom: 1rem;" class="modal-body">
+        <p style="color: crimson; margin-bottom: 0;">{{reportError}}</p>
+    </div>
+    <div class="modal-footer">
+        <button (click)="modal.close(); selectedReport = null;" style="border: 1.5px solid #363636" class="btn modal-btn enabled-btn">Cancel</button>
+        <button (click)="resolveReview(modal)" id="resolve-btn" type="button" class="btn modal-btn enabled-btn">Resolve</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteReviewModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Delete review?</h4>
+    </div>
+    <div *ngIf="reportError" style="padding-top: 0; padding-bottom: 1rem;" class="modal-body">
+        <p style="color: crimson; margin-bottom: 0;">{{reportError}}</p>
+    </div>
+    <div class="modal-footer">
+        <button (click)="modal.close(); selectedReport = null;" style="border: 1.5px solid #363636" class="btn modal-btn enabled-btn">Cancel</button>
+        <button (click)="deleteReview(modal)" id="del-btn" type="button" class="btn modal-btn enabled-btn">Delete</button>
+    </div>
+</ng-template>

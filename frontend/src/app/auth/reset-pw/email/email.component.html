@@ -1,0 +1,33 @@
+<div (click)="$event.stopPropagation()" id="bg"></div>
+
+<div id="box" class="mx-auto container-fluid">
+    <div style="background-color: black;" class="row py-3">
+        <div class="col d-flex justify-content-center">
+            <i [routerLink]="['/signin']" class="fas fa-arrow-left back cursor-pointer"></i>
+            <span [routerLink]="['']" style="font-family: 'Big Shoulders Stencil Text', cursive; font-size: 1.5rem; color: white; cursor: pointer;">Game Hub</span>
+        </div>
+    </div>
+    <div class="row bg-color">
+        <div class="col d-flex justify-content-center">
+            <img class="py-4" id="logo" width="80" src="assets/logo.png">
+        </div>
+    </div>
+    <form>
+        <div class="row mt-4 mx-4">
+            <div class="col">
+                <span *ngIf="!errorText" class="help-text">Enter your email address to reset your password</span>
+                <span *ngIf="errorText" class="help-text error-color">{{errorText}}</span>
+            </div>
+        </div>
+        <div class="row mx-4">
+            <div class="col d-flex justify-content-center">
+                <input [formControl]="email" class="form-control mt-3" type="email" placeholder="Email" autofocus>
+            </div>
+        </div>
+        <div class="row mx-4 mt-4">
+            <div class="col d-flex justify-content-center">
+                <button [disabled]="email.errors" [class.enabled-btn]="!email.errors" (click)="sendEmail()" type="button" class="btn bg-color auth-btn mt-4">Send Email</button>
+            </div>
+        </div>
+    </form>
+</div>

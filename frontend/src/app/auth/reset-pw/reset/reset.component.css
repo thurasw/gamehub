@@ -1,0 +1,77 @@
+#bg {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-image: url('../../../../assets/bg.jpg');
+    background-size: cover;
+    z-index: 11;
+}
+
+#box {
+    max-height: 550px;
+    min-height: 400px;
+    height: 75vh;
+    max-width: 400px;
+    min-width: 200px;
+    width: 85vw;
+    background-color: white;
+    z-index: 12;
+    margin-top: 50px;
+    position: relative;
+    box-shadow: 0 0 10pt 2pt black;
+    overflow-y: auto;
+}
+
+#logo {
+    filter: brightness(0) saturate(100%) invert(1);
+}
+
+.help-text {
+    font-family: sans-serif;
+    font-size: .85rem;
+}
+
+.link-text {
+    color: #fd5537;
+}
+
+.link-text:hover {
+    color: rgba(255, 99, 71, 0.801);
+}
+
+.no-border {
+    border-radius: 0;
+}
+
+.bg-color {
+    background-color: #FF6347;
+}
+
+.auth-btn {
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    width: 100%;
+    color: white;
+}
+
+.enabled-btn:hover {
+    background-color: rgba(253, 85, 55, 0.7);
+}
+
+input,
+button {
+    font-size: .9rem;
+}
+
+.back {
+    color: white;
+    font-size: 1.2rem;
+    position: absolute;
+    left: 20px;
+}
+
+.error-color {
+    color: crimson;
+}

@@ -1,0 +1,33 @@
+div {
+    width: 150px;
+    overflow: hidden;
+}
+div:focus {
+    outline: none;
+}
+.cover-small {
+    width: 145px !important;
+    height: 205px !important;
+}
+.cover {
+    width: 150px;
+    height: 225px;
+    object-fit: cover;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px 0px #303030;
+    transform: scale(1);
+    transition: transform 0.2s ease;
+}
+.cover:hover {
+    /*box-shadow: 0px 0px 5px -2px #707070, 0px 0px 0px 2px white, 0px 0px 0px 4px black;*/
+    box-shadow: 0 0.35rem 0.5rem 0.1rem rgba(0,0,0,.3);
+    transform: scale(1.03);
+    transition: transform 0.2s ease;
+}
+.title {
+    margin-top: .4rem;
+    cursor: pointer;
+}
+.title:hover {
+    opacity: 0.7;
+}

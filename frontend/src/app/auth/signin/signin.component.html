@@ -1,0 +1,56 @@
+<div (click)="$event.stopPropagation()" id="bg"></div>
+
+<div id="box" class="mx-auto container-fluid">
+    <div style="background-color: black;" class="row py-3">
+        <div class="col d-flex justify-content-center">
+            <i (click)="goBack()" class="fas fa-arrow-left back cursor-pointer"></i>
+            <span [routerLink]="['']" style="font-family: 'Big Shoulders Stencil Text', cursive; font-size: 1.5rem; color: white; cursor: pointer;">Game Hub</span>
+        </div>
+    </div>
+    <div class="row bg-color">
+        <div class="col d-flex justify-content-center">
+            <img class="py-4" id="logo" width="80" src="assets/logo.png">
+        </div>
+    </div>
+    <div class="row mt-3 mx-4">
+        <div class="col">
+            <span *ngIf="!errorText" class="help-text">Sign in to Game Hub using your email address</span>
+            <span *ngIf="errorText" class="help-text error-color">{{errorText}}</span>
+        </div>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="signin()">
+        <div class="row mx-4">
+            <div class="col d-flex justify-content-center">
+                <input autocomplete="username" formControlName="username" class="form-control mt-3" type="text" placeholder="Username" autofocus>
+            </div>
+        </div>
+        <div class="row mx-4">
+            <div class="col d-flex justify-content-center">
+                <input autocomplete="current-password" formControlName="password" class="form-control mt-3" type="password" placeholder="Password">
+            </div>
+        </div>
+        <div class="row mx-4 mt-3">
+            <div class="col">
+                <div class="custom-control custom-checkbox">
+                    <input [formControl]="persistCheck" type="checkbox" class="custom-control-input" id="persistCheck">
+                    <label style="font-size: small; padding-top: .1rem;" class="custom-control-label" for="persistCheck">Remember Me</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-4">
+            <div class="col d-flex justify-content-center">
+                <button type="submit" class="btn bg-color auth-btn mt-4">Sign in</button>
+            </div>
+        </div>
+    </form>
+    <div class="row mx-4 mt-3">
+        <div class="col">
+            <span (click)="resetPw()" class="help-text link-text cursor-pointer">Trouble signing in?</span>
+        </div>
+    </div>
+    <div class="row mx-4">
+        <div class="col d-flex justify-content-center">
+            <button [routerLink]="['/signup']" class="btn signup-btn mt-4">Create an account</button>
+        </div>
+    </div>
+</div>

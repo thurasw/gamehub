@@ -1,0 +1,5 @@
+<div [routerLink]="['/game', game.slug]" *ngIf="game && game.name">
+    <img *ngIf="game.cover" [class.cover-small]="small" class="cover" [src]="game.cover.image_id | gameImage : '1080p'">
+    <img *ngIf="!game.cover" [class.cover-small]="small" class="cover" src="assets/fallback_cover.png">
+    <p *ngIf="showTitle" title="{{game.name}}" class="title">{{game.name}}</p>
+</div>

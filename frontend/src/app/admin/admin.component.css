@@ -1,0 +1,75 @@
+.header {
+    font-size: 2rem;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.selected-header {
+    font-weight: 400 !important;
+}
+
+.modal-title {
+    font-weight: 400;
+}
+
+.modal-header,
+.modal-footer {
+    border-top: 0;
+    border-bottom: 0;
+}
+
+h4 {
+    margin-bottom: 0;
+    margin-top: .5rem;
+    font-size: 1.5rem;
+}
+
+.modal-body {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 0;
+}
+
+.modal-footer {
+    padding-top: 0;
+}
+
+.modal-btn {
+    border-radius: 30px;
+    background-color: #363636;
+    color: white;
+    border: 1px solid #363636;
+}
+
+.modal-btn.enabled-btn:hover {
+    background-color: transparent;
+    color: #363636;
+    box-shadow: 0 0 1px black;
+}
+
+input.form-control[readonly] {
+    outline: none;
+    box-shadow: none;
+}
+
+#del-btn {
+    color: white;
+    background-color: crimson;
+    border: 1.5px solid crimson;
+}
+
+#del-btn:hover {
+    background-color: transparent;
+    color: crimson;
+}
+
+#resolve-btn {
+    color: white;
+    background-color: mediumaquamarine;
+    border: 1.5px solid mediumaquamarine;
+}
+
+#resolve-btn:hover {
+    background-color: transparent;
+    color: mediumaquamarine;
+}

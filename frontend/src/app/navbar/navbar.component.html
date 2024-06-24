@@ -1,0 +1,55 @@
+<nav [class.nav-game-details]="gameDetails" (click)="searching = false; searched = false;" id="navbar" class="navbar navbar-expand-lg navbar-light">
+    <!--NAV BLUR BG-->
+    <div [ngClass]="{'blur': searching, 'blur-game-details': gameDetails}"></div>
+    <!--NAV LOGO-->
+    <a [routerLink]="['/']" id="logo" class="navbar-brand ml-3" href="#">
+        <img [class.logo-game-details]="gameDetails" width="70" height="35" [src]="gameDetails ? 'assets/logo_border.png' : 'assets/logo.png'">
+        <span *ngIf="!gameDetails" class="ml-3">Game Hub</span>
+    </a>
+
+    <!--NAV LINKS-->
+    <div class="ml-auto">
+        <div *ngIf="loggedIn && !searching" class="dropdown open mr-md-3 mr-1">
+            <button [class.login-game-details]="gameDetails" style="font-size: 1rem; padding-left: .8rem; padding-right: .6rem;" class="btn dropdown-toggle navbar-btn" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-gamepad"></i>
+                &nbsp;{{user}}
+            </button>
+            <div style="min-width: 8rem;" class="dropdown-menu p-0">
+                <a *ngIf="admin" [routerLink]="['admin']" class="dropdown-item" href="#!">Admin</a>
+                <a (click)="logout()" class="dropdown-item" href="#!">Logout</a>
+            </div>
+        </div>
+        <button [class.login-game-details]="gameDetails" [routerLink]="['/signin']" *ngIf="!searching && !loggedIn" class="btn navbar-btn cursor-pointer mr-md-3 mr-1">
+      Login
+    </button>
+    </div>
+    <!--NAV BUTTONS-->
+    <button (click)="expandSearch($event)" [ngClass]="{'search-bg': searching, 'search-bg-white': searching === false}" class="btn search-btn cursor-pointer">
+    <img [class.search-game-details] = "gameDetails && !searching" height="30" src="assets/icons/search.png">
+  </button>
+</nav>
+
+<!--NAV SEARCH-->
+<div *ngIf="searching" (click)="searching = false; searched = false;" id="bg"></div>
+<form (click)="$event.stopPropagation()" class="form-inline" id="search-bar">
+    <input (ngModelChange)="valueChanged.next($event)" (keyup.enter)="seeAllResults()" [formControl]="searchInput" #searchbar [@search-bar-fill] *ngIf="searching" class="form-control" type="text" placeholder="Search..." autofocus>
+    <div [@search-results] *ngIf="searched" id="search-results">
+        <div class="container">
+            <div (click)="getGameDetails(game)" *ngFor="let game of searchResults.slice(0, 2)" class="row result">
+                <div class="col-5 col-md-2">
+                    <img *ngIf="game.cover" class="game-cover" [src]="game.cover.image_id | gameImage : '1080p'">
+                    <img *ngIf="!game.cover" class="game-cover" src="assets/fallback_cover.png">
+                </div>
+                <div class="col-7 col-md-10">
+                    <p class="game-title">{{game.name}}</p>
+                    <p *ngIf="game.first_release_date" class="game-year">{{game.first_release_date | unixTime:'year'}}</p>
+                </div>
+            </div>
+            <div (click)="seeAllResults()" class="row result">
+                <div class="col">
+                    <p style="margin-top: 1rem;" class="cover-year">See all results...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

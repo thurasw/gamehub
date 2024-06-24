@@ -1,0 +1,29 @@
+<div style="margin-top: 80px;" class="container-fluid px-0">
+    <div class="row">
+        <div class="col">
+            <ngb-carousel class="promo-slide" *ngIf="promos && promos.length" [showNavigationArrows]="false" [interval]="5000" [pauseOnFocus]="false" [animation]="false" (slide)="onSlide($event)">
+                <ng-template *ngFor="let promo of promos; let i = index" [id]="promo.id" ngbSlide>
+                    <div style="cursor: pointer;" [routerLink]="['game', promo.gameSlug]">
+                        <img [@promo-slide-left]="(currentSlideId === promo.id && !isOdd(i)) ? 'visible' : 'invisible'" [@promo-slide-right]="(currentSlideId === promo.id && isOdd(i)) ? 'visible' : 'invisible'" [ngClass]="{'promo-left': !isOdd(i), 'promo-right': isOdd(i)}" class="promo-banner"
+                            [src]="promo.banner | promoImage : promo.gameSlug">
+                        <img class="promo-bg" [src]="promo.background | promoImage : promo.gameSlug" [alt]="promo.name">
+                        <img [@promo-slide-left]="(currentSlideId === promo.id && isOdd(i)) ? 'visible' : 'invisible'" [@promo-slide-right]="(currentSlideId === promo.id && !isOdd(i)) ? 'visible' : 'invisible'" [ngClass]="{'promo-right': !isOdd(i), 'promo-left': isOdd(i)}" class="promo-char"
+                            [src]="promo.character | promoImage : promo.gameSlug">
+                    </div>
+                </ng-template>
+            </ngb-carousel>
+        </div>
+    </div>
+</div>
+<div *ngIf="trending && trending.length" class="container">
+    <div class="row mt-5">
+        <div class="col">
+            <p class="header">Trending</p>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor="let game of trending" class="col-2 my-4">
+            <app-game-item [game]="game"></app-game-item>
+        </div>
+    </div>
+</div>

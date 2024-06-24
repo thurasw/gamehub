@@ -1,0 +1,236 @@
+#navbar {
+    height: 80px;
+    position: fixed;
+    z-index: 101;
+    width: 100%;
+    background-color: white;
+}
+
+#logo img {
+    vertical-align: bottom;
+}
+
+#logo span {
+    font-size: 1.5rem;
+    font-family: 'Big Shoulders Stencil Text', cursive;
+    display: inline-block;
+    margin-bottom: .4rem;
+}
+
+.navbar-btn {
+    border-radius: 36px;
+    border-width: 2px;
+    background-color: #363636;
+    color: white;
+    font-size: 1.1rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    padding-top: .3rem;
+    padding-bottom: .3rem;
+}
+
+.navbar-btn:hover {
+    border-color: #363636;
+    border-width: 2px;
+    background-color: transparent;
+    color: #363636;
+}
+
+#bg {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#search-bar {
+    position: fixed;
+    top: 20px;
+    right: 72px;
+    z-index: 101;
+    width: 40vw;
+}
+
+#search-bar input {
+    border-radius: 0;
+    height: 40px;
+    width: 40vw;
+    border: none;
+    padding-left: 15px;
+    border-radius: 4px 0 0 4px;
+}
+
+.search-btn {
+    height: 40px;
+    border-radius: 0;
+    padding-top: 5px;
+}
+
+.search-bg {
+    background-color: tomato;
+    z-index: 2;
+    animation-name: search-bg;
+    animation-duration: 300ms;
+    animation-timing-function: ease;
+}
+
+.search-bg-white {
+    animation-name: search-bg-white;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+}
+
+.blur {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.blur:not(.blur-game-details) {
+    background-color: rgba(0, 0, 0, 0.5);
+    animation-name: blur;
+    animation-timing-function: ease;
+    animation-duration: 400ms;
+}
+
+@keyframes blur {
+    from {
+        background-color: 'initial';
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+}
+
+@keyframes search-bg {
+    from {
+        opacity: 0;
+        background-color: initial;
+    }
+    to {
+        opacity: 1;
+        background-color: tomato;
+    }
+}
+
+@keyframes search-bg-white {
+    from {
+        background-color: tomato;
+    }
+    to {
+        background-color: initial;
+    }
+}
+
+input:focus,
+button:focus {
+    outline: none;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+@media screen and (max-width: 390px) {
+    #logo span {
+        font-size: 1.3rem;
+    }
+    #logo img {
+        width: 55px !important;
+        height: 28px !important;
+    }
+    .navbar-btn {
+        padding: .25rem .65rem !important;
+        font-size: .9rem !important;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    #search-bar,
+    #search-bar input,
+    #search-results {
+        width: 78vw !important;
+    }
+}
+
+.dropdown-item {
+    font-family: sans-serif;
+    font-size: .9rem;
+    padding: .6rem 1.5rem;
+    border-radius: .25rem;
+}
+
+.dropdown-item:hover {
+    background-color: rgb(235, 235, 235);
+}
+
+.dropdown-item:focus {
+    background-color: rgb(220, 220, 220);
+    color: black;
+}
+
+#search-results {
+    width: 40vw;
+    background-color: white;
+    border-radius: 4px;
+    margin-top: 3px;
+}
+
+.result {
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.result:hover {
+    background-color: lightgray;
+}
+
+.game-cover {
+    width: 70px;
+    height: 105px;
+    object-fit: cover;
+    margin: 10px 0;
+    box-shadow: 0px 0px 5px 0px #707070;
+}
+
+.game-title {
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: .5rem;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow-x: hidden;
+}
+
+.game-year {
+    font-weight: 300;
+    font-style: italic;
+}
+
+.nav-game-details {
+    background-color: transparent !important;
+}
+
+.search-game-details {
+    filter: invert(50%) sepia(0%) saturate(4%) hue-rotate(240deg) brightness(96%) contrast(88%);
+}
+
+.login-game-details {
+    background-color: transparent !important;
+    color: #7c7c7c !important;
+    font-weight: 500;
+}
+
+.login-game-details:hover {
+    opacity: 1 !important;
+    border-color: #7c7c7c !important;
+}
+
+.logo-game-details:hover {
+    opacity: 0.8 !important;
+    filter: drop-shadow(0px 0px 5px #707070);
+}

@@ -1,0 +1,49 @@
+/* You can add global styles to this file, and also import other style files */
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.cursor-pointer:hover {
+    opacity: 0.7;
+}
+
+.carousel:focus {
+    outline: 0 !important;
+}
+.promo-slide .carousel-item {
+    display: block !important;
+    z-index: 1;
+    position: absolute;
+    transition: opacity .7s ease-in, visibility .7s;
+    opacity: 0;
+    visibility: hidden;
+}
+.promo-slide .carousel-item.active {
+    position: relative;
+    transition: opacity .7s ease-in, visibility .7s;
+    visibility: visible;
+    opacity: 1;
+}
+
+/* CAROUSEL STYLES */
+.video-slide .carousel-control-prev, .carousel-control-next {
+    height: fit-content;
+    top: 50% !important;
+}
+.carousel-indicators li {
+    border-radius: 50% !important;
+    height: 7px !important;
+    width: 7px !important;
+}
+ol.carousel-indicators {
+    margin-bottom: .5rem !important;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

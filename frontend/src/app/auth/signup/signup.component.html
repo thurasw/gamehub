@@ -1,0 +1,72 @@
+<div (click)="$event.stopPropagation()" id="bg"></div>
+
+<div id="box" class="mx-auto container-fluid">
+    <div style="background-color: black;" class="row py-3">
+        <div class="col d-flex justify-content-center">
+            <i [routerLink]="['/signin']" class="fas fa-arrow-left back cursor-pointer"></i>
+            <span [routerLink]="['']" style="font-family: 'Big Shoulders Stencil Text', cursive; font-size: 1.5rem; color: white; cursor: pointer;">Game Hub</span>
+        </div>
+    </div>
+    <div class="row bg-color">
+        <div class="col d-flex justify-content-center">
+            <img class="py-4" id="logo" width="80" src="assets/logo.png">
+        </div>
+    </div>
+    <div class="row mt-3 mx-4">
+        <div class="col">
+            <span *ngIf="!errorText" class="help-text">Create a free new account today</span>
+            <span *ngIf="errorText" class="help-text error-color">{{errorText}}</span>
+        </div>
+    </div>
+    <form [formGroup]="signupForm" (ngSubmit)="signup(dob)">
+        <div class="row mx-4">
+            <div class="col d-flex justify-content-center">
+                <input autocomplete="username" formControlName="username" class="form-control mt-2" type="text" placeholder="Username" autofocus>
+            </div>
+        </div>
+        <div class="row mx-4">
+            <div class="col d-flex justify-content-center">
+                <input autocomplete="email" formControlName="email" class="form-control mt-2" type="text" placeholder="Email" autofocus>
+            </div>
+        </div>
+        <div class="row mx-4">
+            <div class="col d-flex justify-content-center">
+                <input autocomplete="new-password" formControlName="password" class="form-control mt-2" type="password" placeholder="Password">
+            </div>
+        </div>
+        <div class="row mx-4">
+            <div class="col d-flex justify-content-center">
+                <form class="form-inline mt-2 w-100">
+                    <div class="form-group w-100">
+                        <div class="input-group w-100">
+                            <input autocomplete="bday-day" class="form-control" placeholder="Date of Birth" name="dp" [(ngModel)]="dateOfBirth" [minDate]="minDate" [maxDate]="maxDate" [startDate]="startDate" ngbDatepicker #dp="ngbDatepicker" #dob="ngModel">
+                            <div class="input-group-append">
+                                <button style="border: 1px solid #c8c8c8;" class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button">
+                                <i class="fas fa-calendar-alt"></i>                      
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row mx-4 mt-2">
+            <div class="col">
+                <div class="custom-control custom-checkbox">
+                    <input [formControl]="persistCheck" type="checkbox" class="custom-control-input" id="persistCheck">
+                    <label style="font-size: small; padding-top: .1rem;" class="custom-control-label" for="persistCheck">Remember Me</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-4">
+            <div class="col d-flex justify-content-center">
+                <button type="submit" class="btn bg-color auth-btn mt-3">Sign up</button>
+            </div>
+        </div>
+    </form>
+    <div class="row mx-4 mt-3">
+        <div class="col">
+            <span style="font-size: .75rem;" class="help-text text-black-50">By clicking on 'Sign up', you agree to the <u class="cursor-pointer">terms and conditions</u> of the website.</span>
+        </div>
+    </div>
+</div>

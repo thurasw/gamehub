@@ -1,0 +1,19 @@
+<div style="margin-top: 100px" class="container">
+    <div class="row">
+        <div class="col">
+            <h2 style="font-weight: 300; color: #707070">You searched for: 
+                <span style="font-weight: 300; font-style: italic; color: black;">{{query}}</span>
+            </h2>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <p style="font-weight: 350; font-size: .9rem; color: #707070;">{{games.length ? games.length : 'No'}} results</p>
+        </div>
+    </div>
+    <div *ngIf="games.length" class="row mt-4">
+        <div *ngFor="let game of games" class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <app-game-item [game]="game"></app-game-item>
+        </div>
+    </div>
+</div>
