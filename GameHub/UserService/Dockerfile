@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS build-env
 WORKDIR /UserService
 
 # Copy everything
@@ -9,7 +9,7 @@ RUN dotnet restore
 RUN dotnet publish -c Release -o out --no-self-contained
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine
 WORKDIR /UserService
 COPY --from=build-env /UserService/out .
 ENTRYPOINT ["dotnet", "UserService.dll"]

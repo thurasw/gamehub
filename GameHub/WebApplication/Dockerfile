@@ -4,7 +4,7 @@ COPY --from=frontend . .
 RUN npm install --legacy-peer-deps
 RUN npm run build:prod
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS build-env
 # Copy built frontend
 WORKDIR /WebApplication/wwwroot
 COPY --from=frontend-build /frontend/dist .
@@ -16,7 +16,7 @@ RUN dotnet restore
 RUN dotnet publish -c Release -o out --no-self-contained
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine
 WORKDIR /WebApplication
 COPY --from=build-env /WebApplication/out .
 ENTRYPOINT ["dotnet", "WebApplication.dll"]
