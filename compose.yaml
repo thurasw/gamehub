@@ -4,7 +4,7 @@ services:
     environment: &port_env
       ASPNETCORE_URLS: http://0:0:0:0:80
     ports:
-      - 3000:80
+      - ${PORT:-3000}:80
 
   web-application:
     build:
@@ -17,8 +17,8 @@ services:
     build: GameHub/GameService
     environment:
       <<: *port_env
-      GAME_CLIENT_ID: ${GAME_CLIENT_ID}
-      GAME_CLIENT_SECRET: ${GAME_CLIENT_SECRET}
+      GAME_CLIENT_ID: ${GAME_CLIENT_ID:?error}
+      GAME_CLIENT_SECRET: ${GAME_CLIENT_SECRET:?error}
 
   promo-service:
     build: GameHub/PromoService
