@@ -1,5 +1,5 @@
 services:
-  gateway:
+  app:
     build: GameHub/Gateway.WebApi
     environment: &port_env
       ASPNETCORE_URLS: http://0:0:0:0:80
