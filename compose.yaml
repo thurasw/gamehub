@@ -10,7 +10,6 @@ services:
       proxy: {}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.gamehub.entrypoints=websecure"
       - "traefik.http.routers.gamehub.rule=HostRegexp(`^gamehub\\..+$`)"
       - "traefik.http.services.gamehub.loadbalancer.server.port=80"
 
