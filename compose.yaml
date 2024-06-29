@@ -3,8 +3,16 @@ services:
     build: GameHub/Gateway.WebApi
     environment: &port_env
       ASPNETCORE_URLS: http://0:0:0:0:80
-    ports:
-      - ${PORT:-3000}:80
+    networks:
+      # Internal network to communicate with the microservices
+      default: {}
+      # The gateway needs to be exposed to the reverse proxy network
+      proxy: {}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gamehub.entrypoints=websecure"
+      - "traefik.http.routers.gamehub.rule=HostRegexp(`^gamehub\\..+$`)"
+      - "traefik.http.services.gamehub.loadbalancer.server.port=80"
 
   web-application:
     build:
@@ -27,7 +35,7 @@ services:
       MYSQL_HOST: mysql
       MYSQL_PASSWORD: secret
     networks: &net
-      db-mysql: {}
+      db.mysql: {}
       default: {}
 
   review-service:
@@ -42,5 +50,7 @@ services:
 
 networks:
   default:
-  db-mysql:
+  db.mysql:
+    external: true
+  proxy:
     external: true
